@@ -5,10 +5,9 @@ cPanel servers blocks it updates if the database server running under it is belo
 However, you may come to a situation where you are not just able to upgrade the database server especially
 in an old server which contains database user password with old 4.1 hashing. Just upgrading the database 
 server will result in these old hashings not to work. So you will be forced to rehash the password to the 
-latest standards. The best method is to reset the password with the same password to rehash it. 
+latest standards. The best method is to reset the password with the same password to rehash it. However, you may find more than a file under the user which has the credentials of the database user and one may be different. This porbably happens when the user ditches the old contents without properly removing it. In that case you needed to manually check which of the passwords mentioned in the files are correct. Using the passwrod reset scrip, you do not need to manually check each of the passwords. 
 
-Add the database users list that will pop up once you click on the upgrade section to a file called as dbuser.txt.
-The below script will generate output.txt will all the files that contain the string of the databse user under each home folder of each users 
+Add the database users list that will pop up once you click on the upgrade section in cPanel to a file called as 'dbuser.txt'. The below script will generate output.txt will all the files that contain the string of the databse user under each home folder of each users 
 
 ```
 tr ' ' '\n' < dbuser.txt| grep "_" | sort | uniq | sort > a.txt
@@ -28,8 +27,7 @@ find /var/cpanel/userdata/$i -maxdepth 1 -type f | xargs grep documentroot | awk
 done
 ```
 
-
-A simple script that runs continuosuly in an infinite while loop and accepts database username and the current password to rehash it using whmapi.
+A simple script that runs continuosuly in an infinite while loop and accepts database username and the current password to rehash it using whmapi only if the input password is the current password.
 
 ```
 while :
