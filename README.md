@@ -51,7 +51,7 @@ whmapi1 set_mysql_password user=$i password=$w cpuser=$j
 
 else
 
-echo "Sorry..Not resetting as the password do not match"
+echo "Sorry..Not resetting as the password does not match"
 
 fi
 
